@@ -34,16 +34,16 @@
     </script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen overflow-hidden bg-backdrop text-white font-sans select-none">
-    <div class="mx-auto flex min-h-screen max-w-3xl flex-col px-4 py-8 sm:px-6 lg:px-10">
-        <div class="flex flex-1 flex-col gap-6">
+<body class="min-h-screen overflow-x-hidden overflow-y-auto bg-backdrop text-white font-sans select-none">
+    <div class="mx-auto flex min-h-screen max-w-3xl flex-col px-3 py-6 sm:px-5 lg:px-10">
+        <div class="flex flex-1 flex-col gap-5 sm:gap-6">
             <!-- Setup Screen -->
-            <section id="setup-view" class="view active w-full space-y-8">
-                <h1 class="text-4xl font-semibold text-brand sm:text-5xl">Impostor</h1>
+            <section id="setup-view" class="view active w-full space-y-6 sm:space-y-8">
+                <h1 class="text-3xl font-semibold text-brand sm:text-5xl">Impostor</h1>
 
-                <div class="w-full space-y-6">
+                <div class="w-full space-y-5 sm:space-y-6">
                     <div class="space-y-3 text-left">
-                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                        <label class="flex items-center text-sm font-semibold text-white/90 sm:text-lg">
                             <i class="fas fa-users mr-3 text-brand"></i>
                             Players: <span id="player-count-display" class="ml-2 text-brand">3</span>
                         </label>
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="space-y-3 text-left">
-                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                        <label class="flex items-center text-sm font-semibold text-white/90 sm:text-lg">
                             <i class="fas fa-user-secret mr-3 text-brand"></i>
                             Impostors: <span id="impostor-count-display" class="ml-2 text-brand">1</span>
                         </label>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="space-y-3 text-left">
-                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                        <label class="flex items-center text-sm font-semibold text-white/90 sm:text-lg">
                             <i class="fas fa-user-ninja mr-3 text-brand"></i>
                             Spies: <span id="spy-count-display" class="ml-2 text-brand">0</span>
                         </label>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="space-y-4 text-left">
-                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                        <label class="flex items-center text-sm font-semibold text-white/90 sm:text-lg">
                             <i class="fas fa-layer-group mr-3 text-brand"></i>
                             Category
                         </label>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="grid w-full grid-cols-2 gap-3">
+                <div class="grid w-full grid-cols-2 gap-2 sm:gap-3">
                     <button id="start-btn" class="rounded-2xl bg-brand px-3 py-3 text-sm font-semibold text-black shadow-glow transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:px-6 sm:py-4 sm:text-lg">Start Game</button>
                     <button id="rules-btn" class="rounded-2xl border border-white/20 px-3 py-3 text-sm font-semibold text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:px-6 sm:py-4 sm:text-lg">How to Play</button>
                 </div>
