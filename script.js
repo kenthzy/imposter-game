@@ -87,7 +87,8 @@ const views = {
     pass: document.getElementById('pass-view'),
     reveal: document.getElementById('reveal-view'),
     discussion: document.getElementById('discussion-view'),
-    gameOver: document.getElementById('game-over-view')
+    gameOver: document.getElementById('game-over-view'),
+    rules: document.getElementById('rules-view')
 };
 
 const inputs = {
@@ -165,6 +166,8 @@ function switchView(viewName) {
 
 // Game Logic
 document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('rules-btn').addEventListener('click', () => switchView('rules'));
+document.getElementById('rules-back-btn').addEventListener('click', () => switchView('setup'));
 document.getElementById('reveal-btn').addEventListener('click', showRole);
 document.getElementById('next-player-btn').addEventListener('click', finishTurn);
 document.getElementById('restart-btn').addEventListener('click', resetGame);
