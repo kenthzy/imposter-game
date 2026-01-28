@@ -4,121 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Impostor Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        backdrop: '#121212',
+                        surface: '#1e1e1e',
+                        brand: '#c9861a',
+                        brandAccent: '#b30000',
+                        accent: '#03dac6',
+                        danger: '#cf6679',
+                        muted: '#b0b0b0'
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    },
+                    boxShadow: {
+                        glow: '0 10px 25px rgba(201,134,26,0.25)'
+                    }
+                }
+            }
+        };
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <!-- Setup Screen -->
-        <section id="setup-view" class="view active">
-            <h1>Impostor</h1>
-            
-            <div class="form-group">
-                <label><i class="fas fa-users"></i> Players: <span id="player-count-display">3</span></label>
-                <input type="range" id="player-count" min="3" max="20" value="4">
-            </div>
+<body class="min-h-screen overflow-hidden bg-backdrop text-white font-sans select-none">
+    <div class="mx-auto flex min-h-screen max-w-3xl flex-col px-4 py-8 sm:px-6 lg:px-10">
+        <div class="flex flex-1 flex-col gap-6">
+            <!-- Setup Screen -->
+            <section id="setup-view" class="view active w-full space-y-8">
+                <h1 class="text-4xl font-semibold text-brand sm:text-5xl">Impostor</h1>
 
-            <div class="form-group">
-                <label><i class="fas fa-user-secret"></i> Impostors: <span id="impostor-count-display">1</span></label>
-                <input type="range" id="impostor-count" min="1" max="2" value="1">
-            </div>
+                <div class="w-full space-y-6">
+                    <div class="space-y-3 text-left">
+                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                            <i class="fas fa-users mr-3 text-brand"></i>
+                            Players: <span id="player-count-display" class="ml-2 text-brand">3</span>
+                        </label>
+                        <input type="range" id="player-count" min="3" max="20" value="4" class="w-full">
+                    </div>
 
-            <div class="form-group">
-                <label><i class="fas fa-user-ninja"></i> Spies: <span id="spy-count-display">0</span></label>
-                <input type="range" id="spy-count" min="0" max="2" value="0">
-            </div>
+                    <div class="space-y-3 text-left">
+                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                            <i class="fas fa-user-secret mr-3 text-brand"></i>
+                            Impostors: <span id="impostor-count-display" class="ml-2 text-brand">1</span>
+                        </label>
+                        <input type="range" id="impostor-count" min="1" max="2" value="1" class="w-full">
+                    </div>
 
-            <div class="form-group">
-                <label><i class="fas fa-layer-group"></i> Category</label>
-                <div class="category-select">
-                    <button class="category-btn active" data-cat="mixed">Mixed</button>
-                    <button class="category-btn" data-cat="movies">Movies</button>
-                    <button class="category-btn" data-cat="objects">Objects</button>
-                    <button class="category-btn" data-cat="places">Places</button>
-                    <button class="category-btn" data-cat="animals">Animals</button>
-                    <button class="category-btn" data-cat="food">Food</button>
+                    <div class="space-y-3 text-left">
+                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                            <i class="fas fa-user-ninja mr-3 text-brand"></i>
+                            Spies: <span id="spy-count-display" class="ml-2 text-brand">0</span>
+                        </label>
+                        <input type="range" id="spy-count" min="0" max="2" value="0" class="w-full">
+                    </div>
+
+                    <div class="space-y-4 text-left">
+                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                            <i class="fas fa-layer-group mr-3 text-brand"></i>
+                            Category
+                        </label>
+                        <div class="category-select grid grid-cols-2 gap-3 sm:grid-cols-3">
+                            <button class="category-btn active rounded-xl border border-white/10 bg-surface/70 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:text-base" data-cat="mixed">Mixed</button>
+                            <button class="category-btn rounded-xl border border-white/10 bg-surface/70 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:text-base" data-cat="movies">Movies</button>
+                            <button class="category-btn rounded-xl border border-white/10 bg-surface/70 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:text-base" data-cat="objects">Objects</button>
+                            <button class="category-btn rounded-xl border border-white/10 bg-surface/70 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:text-base" data-cat="places">Places</button>
+                            <button class="category-btn rounded-xl border border-white/10 bg-surface/70 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:text-base" data-cat="animals">Animals</button>
+                            <button class="category-btn rounded-xl border border-white/10 bg-surface/70 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:text-base" data-cat="food">Food</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-left">
+                        <label class="flex items-center text-base font-semibold text-white/90 sm:text-lg">
+                            <i class="fas fa-stopwatch mr-3 text-brand"></i>
+                            Timer: <span id="timer-display" class="ml-2 text-brand">3 min</span>
+                        </label>
+                        <input type="range" id="timer-length" min="1" max="5" value="3" class="w-full">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label><i class="fas fa-stopwatch"></i> Timer: <span id="timer-display">3 min</span></label>
-                <input type="range" id="timer-length" min="1" max="5" value="3">
-            </div>
-
-            <div class="action-buttons">
-                <button id="start-btn" class="btn-primary">Start Game</button>
-                <button id="rules-btn" class="btn-info">How to Play</button>
-            </div>
-        </section>
-
-        <!-- Rules Screen -->
-        <section id="rules-view" class="view">
-            <h2>How to Play</h2>
-            <div class="rules-content">
-                <p>1. <strong>Setup:</strong> Select game settings above.</p>
-                <p>2. <strong>Pass & Reveal:</strong> Pass the device. Each player sees their secret word.</p>
-                <p>3. <strong>Identity:</strong> 
-                   <br>- <strong>Locals:</strong> See the secret word.
-                   <br>- <strong>Impostors:</strong> Don't see the word. Blend in!
-                   <br>- <strong>Spies:</strong> Don't see the word either.
-                </p>
-                <p>4. <strong>Discuss:</strong> Describe the word without being too obvious.</p>
-                <p>5. <strong>Vote:</strong> Catch the Impostor before time runs out!</p>
-            </div>
-            <button id="rules-back-btn" class="btn-primary">Back</button>
-        </section>
-
-        <!-- Pass Phone Screen -->
-        <section id="pass-view" class="view">
-            <h2 id="pass-player-text">Pass the phone to Player 1</h2>
-            <div class="icon-placeholder"><i class="fas fa-mobile-alt"></i></div>
-            <p class="instruction">Tap to reveal your role</p>
-            <button id="reveal-btn" class="btn-primary">Reveal Role</button>
-        </section>
-
-        <!-- Unique Reveal Screen -->
-        <section id="reveal-view" class="view">
-            <h2 id="role-title">Your Role</h2>
-            <div class="card">
-                <div class="role-icon"><i id="role-icon-display" class="fas fa-question"></i></div>
-                <h1 id="secret-word">WORD</h1>
-                <p id="role-description">Memorize this word</p>
-            </div>
-            <button id="next-player-btn" class="btn-primary">Hide & Pass</button>
-        </section>
-
-        <!-- Discussion Screen -->
-        <section id="discussion-view" class="view">
-            <h2>Discussion Time</h2>
-            <div class="timer-circle">
-                <span id="countdown">03:00</span>
-            </div>
-            <p>Find the impostor!</p>
-            <button id="end-timer-early-btn" class="btn-secondary">End Discussion</button>
-        </section>
-
-        <!-- Game Over Screen -->
-        <section id="game-over-view" class="view">
-            <h1>Time's Up!</h1>
-            <p>Vote for who you think is the impostor.</p>
-            <div class="card result-card">
-                <div class="result-section">
-                    <p><i class="fas fa-user-secret"></i> Impostors:</p>
-                    <h2 id="reveal-impostor-player">Player X</h2>
+                <div class="grid w-full grid-cols-2 gap-3">
+                    <button id="start-btn" class="rounded-2xl bg-brand px-3 py-3 text-sm font-semibold text-black shadow-glow transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:px-6 sm:py-4 sm:text-lg">Start Game</button>
+                    <button id="rules-btn" class="rounded-2xl border border-white/20 px-3 py-3 text-sm font-semibold text-muted transition hover:border-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand sm:px-6 sm:py-4 sm:text-lg">How to Play</button>
                 </div>
-                <div class="separator"></div>
-                <div class="result-section" id="spy-result-section" style="display:none;">
-                    <p><i class="fas fa-user-ninja"></i> Spies:</p>
-                    <h2 id="reveal-spy-player">Player Y</h2>
-                    <div class="separator"></div>
+            </section>
+
+            <!-- Rules Screen -->
+            <section id="rules-view" class="view w-full space-y-6">
+                <h2 class="text-3xl font-semibold text-white sm:text-4xl">How to Play</h2>
+                <div class="rules-content max-h-[60vh] w-full space-y-4 overflow-y-auto rounded-2xl bg-surface/70 p-6 text-left text-muted">
+                    <p>1. <span class="font-semibold text-brand">Setup:</span> Select game settings above.</p>
+                    <p>2. <span class="font-semibold text-brand">Pass &amp; Reveal:</span> Pass the device. Each player sees their secret word.</p>
+                    <p>3. <span class="font-semibold text-brand">Identity:</span><br>- <span class="font-semibold text-brand">Locals:</span> See the secret word.<br>- <span class="font-semibold text-brand">Impostors:</span> Don't see the word. Blend in!<br>- <span class="font-semibold text-brand">Spies:</span> Don't see the word either.</p>
+                    <p>4. <span class="font-semibold text-brand">Discuss:</span> Describe the word without being too obvious.</p>
+                    <p>5. <span class="font-semibold text-brand">Vote:</span> Catch the Impostor before time runs out!</p>
                 </div>
-                <div class="result-section">
-                    <p><i class="fas fa-key"></i> The Word was:</p>
-                    <h2 id="reveal-word">WORD</h2>
+                <button id="rules-back-btn" class="w-full rounded-2xl bg-brand px-6 py-4 text-lg font-semibold text-black shadow-glow transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand">Back</button>
+            </section>
+
+            <!-- Pass Phone Screen -->
+            <section id="pass-view" class="view w-full space-y-6">
+                <h2 id="pass-player-text" class="text-3xl font-semibold text-white sm:text-4xl">Pass the phone to Player 1</h2>
+                <div class="icon-placeholder flex h-48 w-48 items-center justify-center rounded-full border border-dashed border-white/30 text-6xl text-muted">
+                    <i class="fas fa-mobile-alt"></i>
                 </div>
-            </div>
-            <button id="restart-btn" class="btn-primary">Play Again</button>
-        </section>
+                <p class="text-base text-muted">Tap to reveal your role</p>
+                <button id="reveal-btn" class="w-full rounded-2xl bg-brand px-6 py-4 text-lg font-semibold text-black shadow-glow transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand">Reveal Role</button>
+            </section>
+
+            <!-- Unique Reveal Screen -->
+            <section id="reveal-view" class="view w-full space-y-6">
+                <h2 id="role-title" class="text-3xl font-semibold text-white sm:text-4xl">Your Role</h2>
+                <div class="w-full rounded-2xl bg-surface/80 p-6 text-center shadow-xl">
+                    <div class="role-icon mb-4 text-6xl text-brand">
+                        <i id="role-icon-display" class="fas fa-question"></i>
+                    </div>
+                    <h1 id="secret-word" class="text-4xl font-bold tracking-wide text-white sm:text-5xl">WORD</h1>
+                    <p id="role-description" class="mt-4 text-lg text-muted">Memorize this word</p>
+                </div>
+                <button id="next-player-btn" class="w-full rounded-2xl bg-brand px-6 py-4 text-lg font-semibold text-black shadow-glow transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand">Hide &amp; Pass</button>
+            </section>
+
+            <!-- Discussion Screen -->
+            <section id="discussion-view" class="view w-full space-y-6">
+                <h2 class="text-3xl font-semibold text-white sm:text-4xl">Discussion Time</h2>
+                <div class="timer-circle flex h-48 w-48 items-center justify-center rounded-full border-4 border-accent bg-accent/5 text-4xl font-bold text-white sm:h-60 sm:w-60 sm:text-5xl">
+                    <span id="countdown">03:00</span>
+                </div>
+                <p class="text-base text-muted">Find the impostor!</p>
+                <button id="end-timer-early-btn" class="w-full rounded-2xl border border-danger/60 px-6 py-4 text-lg font-semibold text-danger transition hover:border-danger hover:bg-danger/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-danger">End Discussion</button>
+            </section>
+
+            <!-- Game Over Screen -->
+            <section id="game-over-view" class="view w-full space-y-6">
+                <h1 class="text-4xl font-semibold text-brand sm:text-5xl">Time's Up!</h1>
+                <p class="text-base text-muted">Vote for who you think is the impostor.</p>
+                <div class="w-full rounded-2xl bg-surface/80 p-6 shadow-xl">
+                    <div class="space-y-2 text-center">
+                        <p class="text-sm uppercase tracking-widest text-muted"><i class="fas fa-user-secret mr-2 text-brand"></i>Impostors</p>
+                        <h2 id="reveal-impostor-player" class="text-2xl font-semibold text-white">Player X</h2>
+                    </div>
+                    <div class="my-6 h-px w-full bg-white/10"></div>
+                    <div class="space-y-2 text-center" id="spy-result-section" style="display:none;">
+                        <p class="text-sm uppercase tracking-widest text-muted"><i class="fas fa-user-ninja mr-2 text-brand"></i>Spies</p>
+                        <h2 id="reveal-spy-player" class="text-2xl font-semibold text-white">Player Y</h2>
+                        <div class="my-6 h-px w-full bg-white/10"></div>
+                    </div>
+                    <div class="space-y-2 text-center">
+                        <p class="text-sm uppercase tracking-widest text-muted"><i class="fas fa-key mr-2 text-brand"></i>The Word was</p>
+                        <h2 id="reveal-word" class="text-2xl font-semibold text-white">WORD</h2>
+                    </div>
+                </div>
+                <button id="restart-btn" class="w-full rounded-2xl bg-brand px-6 py-4 text-lg font-semibold text-black shadow-glow transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand">Play Again</button>
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>
